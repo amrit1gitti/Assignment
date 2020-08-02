@@ -5,16 +5,11 @@ class User extends Component {
 
   componentDidMount() {
     const {
-      match: { params },
+      match: { params }
     } = this.props;
 
-
-    console.log(this.props);
-
-    
-
     fetch(`https://reqres.in/api/users/${params.userId}`)
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(({ data: user }) => {
         this.setState({ user });
       });
@@ -34,7 +29,12 @@ class User extends Component {
           <h1>
             {this.state.user.first_name} {this.state.user.last_name}
           </h1>
-          <p>{this.state.user.email}</p>
+          <div>
+            <label>Phone: +1250 {(Math.random() * 10000454180) | 0}</label>
+          </div>
+          <div>
+            <label>Email: {this.state.user.email}</label>
+          </div>
         </div>
       </div>
     );

@@ -4,25 +4,38 @@ import "./Login.css";
 class Login extends Component {
   state = {
     username: "",
-    password: "",
+    password: ""
   };
-
+  validate = () => {
+    if (this.state.username === "") {
+      alert("Please Enter Username");
+      return false;
+    } else if (this.state.password === "") {
+      alert("Please Enter Password");
+      return false;
+    }
+    return true;
+  };
   handleLogin = () => {
+    const isValid = this.validate();
+    if (isValid === false) {
+      return;
+    }
     fetch("https://reqres.in/api/login", {
       method: "post",
       headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         clientId: "authService",
         clientSecret: "123",
         username: this.state.username,
-        password: this.state.password,
-      }),
+        password: this.state.password
+      })
     })
-      .then((res) => res.json())
-      .then((res) => {
+      .then(res => res.json())
+      .then(res => {
         if (res.token) {
           localStorage.setItem("loggedIn", true);
           this.props.history.replace("/dashboard");
@@ -33,9 +46,9 @@ class Login extends Component {
       });
   };
 
-  handleUsername = (event) =>
+  handleUsername = event =>
     this.setState({ username: event.currentTarget.value });
-  handlePassword = (event) =>
+  handlePassword = event =>
     this.setState({ password: event.currentTarget.value });
 
   render() {

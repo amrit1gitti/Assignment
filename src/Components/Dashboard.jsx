@@ -2,21 +2,14 @@ import React, { Component } from "react";
 import "./Dashboard.css";
 
 class Dashboard extends Component {
-  
   constructor(props) {
     super(props);
     this.state = {
       count: 1,
       userList: [],
-      maxCount: Number.MAX_VALUE,
+      maxCount: Number.MAX_VALUE
     };
   }
-
-  // componentDidMount() {
-  //   fetch("https://reqres.in/api/users?page=2")
-  //     .then((res) => res.json())
-  //     .then((rec) => this.setState({ userList: [...rec.data] }));
-  // }
 
   componentDidMount() {
     this.fetchData();
@@ -24,21 +17,21 @@ class Dashboard extends Component {
 
   fetchData() {
     fetch("https://reqres.in/api/users?page=" + this.state.count)
-      .then((res) => res.json())
-      .then((rec) => {
+      .then(res => res.json())
+      .then(rec => {
         this.setState({ userList: [...rec.data], maxCount: rec.total_pages });
       });
   }
 
   moveBackward = () => {
     this.setState({
-      count: this.state.count - 1,
+      count: this.state.count - 1
     });
   };
 
   moveForward = () => {
     this.setState({
-      count: this.state.count + 1,
+      count: this.state.count + 1
     });
   };
 
@@ -63,7 +56,7 @@ class Dashboard extends Component {
     );
   }
 
-  handleUserInfo = (e) => this.props.history.push(`/users/${e}`);
+  handleUserInfo = e => this.props.history.push(`/users/${e}`);
 
   logout = () => {
     this.props.history.replace(`/`);
@@ -97,7 +90,7 @@ class Dashboard extends Component {
         </button>
         <div id="container">
           {this.state.userList &&
-            this.state.userList.map((item) => (
+            this.state.userList.map(item => (
               <div
                 className="card"
                 key={item.id}
